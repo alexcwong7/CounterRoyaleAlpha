@@ -4,16 +4,24 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.17.1",
     "ejs": "^2.6.2",
+    "express": "^4.17.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node app.js"
+	"start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexcwong7/CounterRoyaleAlpha.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexcwong7/CounterRoyaleAlpha/issues"
+  },
+  "homepage": "https://github.com/alexcwong7/CounterRoyaleAlpha#readme"
 }
