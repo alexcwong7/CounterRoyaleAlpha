@@ -6,7 +6,7 @@ var request = require("request");
 
 // Routing
 app.use(express.static("public"));
-app.set("view engine", "ejs");
+//app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   // API Request
@@ -22,10 +22,14 @@ app.get("/", (req, res) => {
       if(!error && response.statusCode == 200) {
           var data = JSON.parse(body);
           //console.log(data);
-          res.render("index");
+          res.render("index.ejs");
       }
   });
 
+});
+
+app.get("/.well-known/pki-validation/8E4D9FCD2D727D1DD8F83EF95C39E958.txt", (req, res) => {
+  res.render("8E4D9FCD2D727D1DD8F83EF95C39E958.txt");
 });
 
 app.listen(process.env.PORT || 3000, () => {
