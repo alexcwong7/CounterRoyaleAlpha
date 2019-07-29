@@ -1,4 +1,4 @@
-/*var express = require("express");
+var express = require("express");
 var app = express();
 var request = require("request");
 
@@ -8,7 +8,7 @@ const https = require('https');
 const httpsOptions = {
   cert: fs.readFileSync('./ssl/counterroyale_com.crt'),
   ca: fs.readFileSync('./ssl/counterroyale_com.ca-bundle'),
-  key: fs.readFileSync('./ssl/counterroyale_com.p7b')
+  key: fs.readFileSync('./ssl/server.key')
 };
 
 const httpsServer = https.createServer(httpsOptions, app);
@@ -42,28 +42,4 @@ app.get("/", (req, res) => {
 //   console.log("Server is running");
 // });
 
-httpsServer.listen(443, 'counterroyale.com');
-
-*/
-
-const fs = require("fs");
-const https = require('https');
-
-const hostname = 'counterroyale.com';
-const port = 443;
-
-const httpsOptions = {
-  cert: fs.readFileSync('./ssl/counterroyale_com.crt'),
-  ca: fs.readFileSync('./ssl/counterroyale_com.ca-bundle'),
-  key: fs.readFileSync('./ssl/server.key')
-};
-
-const httpsServer = https.createServer(httpsOptions, (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html');
-  res.end('<h1>Hello from the HTTPS server</h1>');
-});
-
-httpsServer.listen(process.env.PORT || 3001, () => {
-  console.log("Server is running");
-});
+httpsServer.listen(process.env.PORT || 3000, 'counterroyale.com');
