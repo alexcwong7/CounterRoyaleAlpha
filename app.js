@@ -38,8 +38,8 @@ app.get("/", (req, res) => {
 });
 
 
-// app.listen(process.env.PORT || 3000, () => {
-//   console.log("Server is running");
-// });
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is running");
+});
 
-httpsServer.listen(process.env.PORT || 3000, 'counterroyale.com');
+//httpsServer.listen(process.env.PORT || 3000, 'counterroyale.com');
