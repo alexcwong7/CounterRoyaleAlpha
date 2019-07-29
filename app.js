@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/.well-known/pki-validation/8E4D9FCD2D727D1DD8F83EF95C39E958.txt", (req, res) => {
-  res.render("8E4D9FCD2D727D1DD8F83EF95C39E958.txt");
+  res.redirect("8E4D9FCD2D727D1DD8F83EF95C39E958.txt");
 });
 
 app.listen(process.env.PORT || 3000, () => {
