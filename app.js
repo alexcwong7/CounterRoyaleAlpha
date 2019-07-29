@@ -6,7 +6,7 @@ var request = require("request");
 
 // Routing
 app.use(express.static("public"));
-//app.set("view engine", "ejs");
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   // API Request
@@ -28,9 +28,6 @@ app.get("/", (req, res) => {
 
 });
 
-app.get("/.well-known/pki-validation/8E4D9FCD2D727D1DD8F83EF95C39E958.txt", (req, res) => {
-  res.redirect("8E4D9FCD2D727D1DD8F83EF95C39E958.txt");
-});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running");
