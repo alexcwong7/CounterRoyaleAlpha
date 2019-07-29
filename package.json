@@ -1,17 +1,19 @@
 {
   "name": "royaleapi",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
     "ejs": "^2.6.2",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {},
   "scripts": {
-	"start": "node app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/alexcwong7/CounterRoyaleAlpha/issues"
   },
-  "homepage": "https://github.com/alexcwong7/CounterRoyaleAlpha#readme"
+  "homepage": "https://github.com/alexcwong7/CounterRoyaleAlpha#readme",
+  "description": ""
 }
