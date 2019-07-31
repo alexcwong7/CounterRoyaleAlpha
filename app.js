@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var request = require("request");
+var compression = require("compression");
 
 const fs = require('fs');
 const https = require('https');
@@ -15,6 +16,7 @@ const httpsServer = https.createServer(httpsOptions, app);
 
 // Routing
 app.use(express.static("public"));
+app.use(compression());
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
