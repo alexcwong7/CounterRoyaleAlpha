@@ -19,15 +19,13 @@ const httpsOptions = {
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(httpsOptions, app);
 
-// REDIRECT to secure protocol
+// REDIRECT to secure protocol (UNCOMMENT WHEN PUBLISHING!)
 app.use((req, res, next) => {
 	if(req.protocol === 'http') {
 		res.redirect(301, `https://${req.headers.host}${req.url}`);
 	}
 	next();
 });
-
-// Set favicon
 
 // Routing
 app.use(express.static("public"));
@@ -37,7 +35,7 @@ app.get("/", (req, res) => {
   // API Request
   var options = {
       method: 'GET',
-      url: 'https://api.royaleapi.com/clan/20PVP80',
+      url: 'https://v3-beta.royaleapi.com/constants',
       headers: {
           auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcwMSwiaWRlbiI6IjE3ODQ0MTkxMjQxMDE3NzUzNyIsIm1kIjp7InVzZXJuYW1lIjoiRmFuY3lOYW1lIiwia2V5VmVyc2lvbiI6MywiZGlzY3JpbWluYXRvciI6IjI1NjgifSwidHMiOjE1NjQyNTU2ODQyNTJ9.VkWIPXQxdSnEdFinB27P8IIThAKnFPH22vN1O2Z14Pk'
       }
@@ -46,19 +44,18 @@ app.get("/", (req, res) => {
   request(options, (error, response, body) => {
       if(!error && response.statusCode == 200) {
           var data = JSON.parse(body);
-          console.log(data);
-          res.render("index.ejs");
+          console.log(data.cards);
+          res.render("index.ejs", {data:data.cards});
       }
   });
 
 });
 
-// Start server
+// Start server GLOBALLY (UNCOMMENT WHEN PUBLISHING!)
 httpServer.listen(httpPort, hostname);
 httpsServer.listen(httpsPort, hostname);
 
-//app.listen(process.env.PORT || 3000, () => {
-//  console.log("Server is running");
-//});
-
-
+// Start server LOCALLY
+/*app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is running");
+});*/
