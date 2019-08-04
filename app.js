@@ -1,22 +1,36 @@
-var express = require("express");
-var app = express();
-var request = require("request");
-var compression = require("compression");
+const express = require("express");
+const app = express();
+const request = require("request");
 
+// SSL certificate stuff
 const fs = require('fs');
+const http = require('http');
 const https = require('https');
 
+const hostname = 'counterroyale.com';
+const httpPort = 80;
+const httpsPort = 443;
 const httpsOptions = {
   cert: fs.readFileSync('./ssl/counterroyale_com.crt'),
   ca: fs.readFileSync('./ssl/counterroyale_com.ca-bundle'),
   key: fs.readFileSync('./ssl/server.key')
 };
 
+const httpServer = http.createServer(app);
 const httpsServer = https.createServer(httpsOptions, app);
+
+// REDIRECT to secure protocol
+app.use((req, res, next) => {
+	if(req.protocol === 'http') {
+		res.redirect(301, `https://${req.headers.host}${req.url}`);
+	}
+	next();
+});
+
+// Set favicon
 
 // Routing
 app.use(express.static("public"));
-app.use(compression());
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
@@ -32,16 +46,19 @@ app.get("/", (req, res) => {
   request(options, (error, response, body) => {
       if(!error && response.statusCode == 200) {
           var data = JSON.parse(body);
-          //console.log(data);
+          console.log(data);
           res.render("index.ejs");
       }
   });
 
 });
 
+// Start server
+httpServer.listen(httpPort, hostname);
+httpsServer.listen(httpsPort, hostname);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Server is running");
-});
+//app.listen(process.env.PORT || 3000, () => {
+//  console.log("Server is running");
+//});
 
-//httpsServer.listen(process.env.PORT || 3000, 'counterroyale.com');
+
