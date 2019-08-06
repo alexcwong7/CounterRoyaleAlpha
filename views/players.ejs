@@ -1,0 +1,33 @@
+<% include partials/header.ejs %>
+<section>
+  <div class="container">
+    <h1>Player Search</h1>
+
+    <form action="/players" method="GET" onsubmit="parseTag()">
+        <input type="text" placeholder="tag #xxxxxxx" name="tag" id="tag">
+        <input type="submit">
+    </form>
+  </div>
+</section>
+
+<section id="playerProfile">
+  <div class="container">
+      <% try { %>
+        <h1><%= data["name"] %></h1>
+        <p class="lead"><%= data["tag"] %></p>
+
+
+      <% } catch (err) { %>
+        <h1>test</h1>
+      <% } %>
+  </div>
+</section>
+
+<script type="text/javascript">
+  function parseTag() {
+    $("#tag").val($("#tag").val().split('#').join("").toUpperCase());
+  }
+</script>
+
+
+<% include partials/footer.ejs %>

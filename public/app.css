@@ -3,5 +3,80 @@ header {
 }
 
 section {
-  padding: 150px 0;
+  padding: 100px 0;
 }
+
+/*** BEGIN: Animations ***/
+@keyframes slideAndFade {
+	0% {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+	50% {
+		opacity: .25;
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	40%  {
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
+/*** END: Animations ***/
+/* ================================================================ */
+/*** BEGIN: Navigation ***/
+nav {
+  background: linear-gradient(#555,#222);
+}
+
+.navbar-brand {
+  animation: 1s ease-out 0s normal forwards 1 fadeIn;
+  transition: all 0.5s ease;
+}
+
+.navbar-brand:hover {
+  color: red !important;
+  text-shadow: 0 0 20px red;
+
+}
+
+nav ul li a {
+  color: #ddd !important;
+  animation: 0.5s ease-out 0s forwards 1 slideAndFade;
+  opacity: 0;
+  letter-spacing: 1px;
+  transition: all 0.5s ease;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+nav ul li a:hover {
+  color: white !important;
+  background: #007bff;
+  border-radius: 10px;
+}
+/*** END: Navigation ***/
+/* ================================================================= */
+/*** BEGIN: Player Profile ***/
+#playerProfile {
+  background: pink;
+}
+
+#playerProfile .container {
+  background: red;
+}
+/*** END: Player Profile ***/
