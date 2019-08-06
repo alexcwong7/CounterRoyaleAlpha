@@ -20,12 +20,12 @@ const httpServer = http.createServer(app);
 const httpsServer = https.createServer(httpsOptions, app);
 
 // REDIRECT to secure protocol (UNCOMMENT WHEN PUBLISHING!)
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
 	if(req.protocol === 'http') {
 		res.redirect(301, `https://${req.headers.host}${req.url}`);
 	}
 	next();
-});*/
+});
 
 // Routing
 app.use(express.static("public"));
@@ -114,10 +114,10 @@ app.get("/players/:query", (req, res) => {
 });
 
 // Start server GLOBALLY (UNCOMMENT WHEN PUBLISHING!)
-//httpServer.listen(httpPort, hostname);
-//httpsServer.listen(httpsPort, hostname);
+httpServer.listen(httpPort, hostname);
+httpsServer.listen(httpsPort, hostname);
 
 // Start server LOCALLY
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Server is running");
-});
+//app.listen(process.env.PORT || 3000, () => {
+//  console.log("Server is running");
+//});
