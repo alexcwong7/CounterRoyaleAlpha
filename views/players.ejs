@@ -15,10 +15,42 @@
       <% try { %>
         <h1><%= data["name"] %></h1>
         <p class="lead"><%= data["tag"] %></p>
-
-
+        <div>Current Trophies: <strong><%= data["trophies"] %> </strong><img src="https://royaleapi.com/static/img/ui/trophy.png" class="trophyImg" alt="Trophy"></div>
+        <div>Highest Trophies: <strong><%= data["stats"]["maxTrophies"] %> </strong><img src="https://royaleapi.com/static/img/ui/trophy.png" class="trophyImg" alt="Trophy"></div>
+        <hr>
+        <h2>Chest Cycle</h2>
+        <% for(var i = 0; i < chests["upcoming"].length; i++) { %>
+          <% if(chests["upcoming"][i] === "golden") { %>
+            <% chests["upcoming"][i] = "gold"; %>
+          <% } %>
+          <span class="chestCycle">
+            <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-<%= chests["upcoming"][i] %>.png" alt="Chest Cycle">
+            <% var cycle = i + 1; %>
+            <span class="chestNumber"><%= "+" + cycle %></span>
+          </span>
+        <% } %>
+        <span class="chestCycle">
+          <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-megalightning.png" alt="Chest Cycle">
+          <span class="chestNumber"><%= "+" + chests["megaLightning"] %></span>
+        </span>
+        <span class="chestCycle">
+          <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-magical.png" alt="Chest Cycle">
+          <span class="chestNumber"><%= "+" + chests["magical"] %></span>
+        </span>
+        <span class="chestCycle">
+          <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-legendary.png" alt="Chest Cycle">
+          <span class="chestNumber"><%= "+" + chests["legendary"] %></span>
+        </span>
+        <span class="chestCycle">
+          <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-epic.png" alt="Chest Cycle">
+          <span class="chestNumber"><%= "+" + chests["epic"] %></span>
+        </span>
+        <span class="chestCycle">
+          <img class="chestImage" src="https://royaleapi.github.io/cr-api-assets/chests/chest-giant.png" alt="Chest Cycle">
+          <span class="chestNumber"><%= "+" + chests["giant"] %></span>
+        </span>
       <% } catch (err) { %>
-        <h1>test</h1>
+
       <% } %>
   </div>
 </section>

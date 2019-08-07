@@ -49,18 +49,18 @@ app.get("/", (req, res) => {
   });
 });
 
+// TODO:
 app.get("/decks", (req, res) => {
-
   res.render("decks.ejs");
 });
 
+// Player page, get player info
 app.get("/players", (req, res) => {
   var query = req.query.tag;
   if(query === undefined) {
     res.render("players.ejs");
   }
   else {
-    //query = query.split('#').join("").toUpperCase();
     var options = {
         method: 'GET',
         url: 'https://v3-beta.royaleapi.com/player/'+query,
@@ -68,12 +68,31 @@ app.get("/players", (req, res) => {
             auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcwMSwiaWRlbiI6IjE3ODQ0MTkxMjQxMDE3NzUzNyIsIm1kIjp7InVzZXJuYW1lIjoiRmFuY3lOYW1lIiwia2V5VmVyc2lvbiI6MywiZGlzY3JpbWluYXRvciI6IjI1NjgifSwidHMiOjE1NjQyNTU2ODQyNTJ9.VkWIPXQxdSnEdFinB27P8IIThAKnFPH22vN1O2Z14Pk'
         }
     };
-
+    // First API request for player statistics
     request(options, (error, response, body) => {
         if(!error && response.statusCode == 200) {
             var data = JSON.parse(body);
-            res.render("players.ejs", {data: data});
+            var options2 = {
+                method: 'GET',
+                url: 'https://v3-beta.royaleapi.com/player/'+query+'/chests',
+                headers: {
+                    auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcwMSwiaWRlbiI6IjE3ODQ0MTkxMjQxMDE3NzUzNyIsIm1kIjp7InVzZXJuYW1lIjoiRmFuY3lOYW1lIiwia2V5VmVyc2lvbiI6MywiZGlzY3JpbWluYXRvciI6IjI1NjgifSwidHMiOjE1NjQyNTU2ODQyNTJ9.VkWIPXQxdSnEdFinB27P8IIThAKnFPH22vN1O2Z14Pk'
+                }
+            };
+            // Second API request for chest cycle
+            request(options2, (error, response, body) => {
+                if(!error && response.statusCode == 200) {
+                    var chests = JSON.parse(body);
+                    console.log(chests);
+                    res.render("players.ejs", {data: data, chests: chests});
+                }
+                // TODO:
+                else {
+                  res.send("Chest cycle not found!");
+                }
+            });
         }
+        // TODO:
         else {
           res.send("Player not found!");
         }
@@ -81,43 +100,11 @@ app.get("/players", (req, res) => {
   }
 });
 
-/*app.get("/playersearch", (req, res) => {
-  var query = req.query.search;
-  if(typeof query === undefined) {
-    console.log('undefined playersearch');
-    res.render("players.ejs");
-  }
-  else {
-    console.log(query);
-
-    res.redirect("/players/" + query);
-  }
-});*/
-
-app.get("/players/:query", (req, res) => {
-  //var query = req.query.search;
-  var query = req.params.query;
-  console.log("my query!!" +query);
-  var url = "https://v3-beta.royaleapi.com/player/" + query;
-  console.log("/players/*");
-  request(url, (error, response, body) => {
-      if(!error && response.statusCode == 200) {
-          var data = JSON.parse(body);
-          console.log(data["name"]);
-          res.render("players.ejs", {data: data});
-      }
-      else {
-        res.send("Player not found!");
-      }
-  });
-  //res.render("players.ejs");
-});
-
 // Start server GLOBALLY (UNCOMMENT WHEN PUBLISHING!)
 httpServer.listen(httpPort, hostname);
 httpsServer.listen(httpsPort, hostname);
 
-// Start server LOCALLY
+// Start server LOCALLY (COMMENT WHEN PUBLISHING!)
 //app.listen(process.env.PORT || 3000, () => {
 //  console.log("Server is running");
 //});
